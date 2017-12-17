@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/binary"
+	"errors"
 )
 
 /**
@@ -39,8 +40,7 @@ func Decode(input *bufio.Reader) (string, error) {
 	}
 
 	if int32(input.Buffered()) < len+4 {
-		//should be error
-		return "", nil
+		return "", errors.New("invalid packet length")
 	}
 
 	pack := make([]byte, len+4)
